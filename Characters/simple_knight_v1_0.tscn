@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://ctim5x1x3847q"]
+[gd_scene load_steps=52 format=3 uid="uid://ctim5x1x3847q"]
 
 [ext_resource type="Script" uid="uid://1whkrlu6s511" path="res://Characters/little_knight.gd" id="1_kneib"]
 [ext_resource type="Texture2D" uid="uid://c3nw3oucql2aa" path="res://Assets/simple_knight_v2.svg" id="1_tescy"]
@@ -496,6 +496,14 @@ radius = 19.0263
 radius = 16.0
 height = 36.0
 
+[sub_resource type="Curve" id="Curve_dy5uf"]
+_limits = [-360.0, 360.0, 0.0, 1.0]
+_data = [Vector2(0, -360), 0.0, 0.0, 0, 0, Vector2(1, 351.91), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_dy5uf"]
+colors = PackedColorArray(0, 0, 0, 1, 1, 0, 0, 1)
+
 [node name="Knight" type="Node2D"]
 top_level = true
 z_index = 20
@@ -532,3 +540,16 @@ limit_bottom = 96
 wait_time = 0.4
 one_shot = true
 autostart = true
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="little_knight"]
+amount = 20
+direction = Vector2(1, -10)
+gravity = Vector2(0, 200)
+orbit_velocity_min = 2.0
+orbit_velocity_max = 20.0
+angle_curve = SubResource("Curve_dy5uf")
+scale_amount_min = 3.0
+scale_amount_max = 5.0
+color_ramp = SubResource("Gradient_dy5uf")
+
+[connection signal="area_entered" from="little_knight/TakeDamage" to="little_knight" method="_on_take_damage_area_entered"]

@@ -1,7 +1,10 @@
-[gd_scene load_steps=11 format=4 uid="uid://b51sor208gitu"]
+[gd_scene load_steps=14 format=4 uid="uid://b51sor208gitu"]
 
 [ext_resource type="Texture2D" uid="uid://crka6e8ji703p" path="res://Assets/terrain_tilemap.png" id="1_2ap32"]
+[ext_resource type="PackedScene" uid="uid://ijd6ukrh48kr" path="res://Characters/coin.tscn" id="2_6ql6v"]
 [ext_resource type="PackedScene" uid="uid://cmvujjwc2jhhs" path="res://Characters/goblin.tscn" id="3_6ql6v"]
+[ext_resource type="PackedScene" uid="uid://cjrwbel8yqlp4" path="res://Characters/zombie.tscn" id="3_7elss"]
+[ext_resource type="PackedScene" uid="uid://clrld3v6b8poq" path="res://Characters/potion.tscn" id="3_ryrsk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ybxfq"]
 resource_name = "Structure"
@@ -34,20 +37,16 @@ tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_ybxfq")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mu7pt"]
-texture = ExtResource("1_2ap32")
-separation = Vector2i(1, 1)
-texture_region_size = Vector2i(32, 32)
-4:0/0 = 0
-4:1/0 = 0
-4:2/0 = 0
-4:3/0 = 0
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_ryrsk"]
+scenes/1/scene = ExtResource("2_6ql6v")
+scenes/2/scene = ExtResource("3_ryrsk")
 
 [sub_resource type="TileSet" id="TileSet_awjr1"]
-sources/0 = SubResource("TileSetAtlasSource_mu7pt")
+sources/1 = SubResource("TileSetScenesCollectionSource_ryrsk")
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_rfkrg"]
 scenes/1/scene = ExtResource("3_6ql6v")
+scenes/2/scene = ExtResource("3_7elss")
 
 [sub_resource type="TileSet" id="TileSet_3n4lr"]
 tile_size = Vector2i(32, 32)
@@ -89,18 +88,18 @@ tile_set = SubResource("TileSet_qcstc")
 
 [node name="Loot" type="TileMapLayer" parent="."]
 z_index = 9
-tile_map_data = PackedByteArray("AAAVAAEAAAAEAAAAAAAYAAEAAAAEAAEAAAAYAAQAAAAEAAEAAAAZAAUAAAAEAAEAAAAZAAQAAAAEAAEAAAAYAAYAAAAEAAEAAAAVAAQAAAAEAAAAAAAUAAUAAAAEAAAAAAAdAAEAAAAEAAIAAAAhAAEAAAAEAAMAAAA=")
 tile_set = SubResource("TileSet_awjr1")
 
 [node name="Enemies" type="TileMapLayer" parent="."]
+z_index = 8
 tile_set = SubResource("TileSet_3n4lr")
 
 [node name="Background" type="TileMapLayer" parent="."]
-z_index = 8
+z_index = 7
 tile_map_data = PackedByteArray("AAAHAAAAAAAAAAAAAAAIAAAAAAABAAAAAAAHAAEAAAAAAAEAAAAIAAEAAAABAAEAAAAHAAMAAAACAAAAAAAIAAMAAAADAAAAAAAIAAQAAAADAAEAAAAIAAUAAAADAAIAAAAHAAQAAAACAAEAAAAHAAUAAAACAAIAAAA=")
 tile_set = SubResource("TileSet_6wqun")
 
 [node name="Further Background" type="TileMapLayer" parent="."]
-z_index = 7
+z_index = 6
 tile_map_data = PackedByteArray("AAAHAAAAAAAAAAAAAAAIAAAAAAABAAAAAAAHAAEAAAAAAAEAAAAIAAEAAAABAAEAAAAHAAMAAAACAAAAAAAIAAMAAAADAAAAAAAIAAQAAAADAAEAAAAIAAUAAAADAAIAAAAHAAQAAAACAAEAAAAHAAUAAAACAAIAAAA=")
 tile_set = SubResource("TileSet_6wqun")
