@@ -1,8 +1,7 @@
-[gd_scene load_steps=49 format=3 uid="uid://ctim5x1x3847q"]
+[gd_scene load_steps=52 format=3 uid="uid://ctim5x1x3847q"]
 
-[ext_resource type="Script" uid="uid://ch0ujfkuspah1" path="res://Characters/rigid_body_2d.gd" id="1_kneib"]
-[ext_resource type="Texture2D" uid="uid://bbikc3nya3rm1" path="res://Assets/simple_knight_v2.svg" id="1_tescy"]
-[ext_resource type="Script" uid="uid://blrq83jdm5eum" path="res://Characters/camera_2d.gd" id="3_k5t4t"]
+[ext_resource type="Script" uid="uid://1whkrlu6s511" path="res://Characters/little_knight.gd" id="1_kneib"]
+[ext_resource type="Texture2D" uid="uid://c3nw3oucql2aa" path="res://Assets/simple_knight_v2.svg" id="1_tescy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dy5uf"]
 atlas = ExtResource("1_tescy")
@@ -490,8 +489,24 @@ animations = [{
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_m25l1"]
 points = PackedVector2Array(0, -16, 15, -3, 12, -1, 15, 3, 10, 8, 7, 7, 7, 16, -8, 16, -8, 7, -12, 8, -16, 3, -13, 0, -16, -3)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_k5t4t"]
+radius = 19.0263
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k5t4t"]
+radius = 16.0
+height = 36.0
+
+[sub_resource type="Curve" id="Curve_dy5uf"]
+_limits = [-360.0, 360.0, 0.0, 1.0]
+_data = [Vector2(0, -360), 0.0, 0.0, 0, 0, Vector2(1, 351.91), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_dy5uf"]
+colors = PackedColorArray(0, 0, 0, 1, 1, 0, 0, 1)
+
 [node name="Knight" type="Node2D"]
 top_level = true
+z_index = 20
 
 [node name="little_knight" type="RigidBody2D" parent="."]
 unique_name_in_owner = true
@@ -501,20 +516,40 @@ jump_accel = -600.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="little_knight"]
 sprite_frames = SubResource("SpriteFrames_ls0yk")
-animation = &"All Frames"
+animation = &"Idle"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="little_knight"]
-visible = false
+[node name="EnvironmentCollision" type="CollisionShape2D" parent="little_knight"]
 shape = SubResource("ConvexPolygonShape2D_m25l1")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(0, -1)
-zoom = Vector2(2, 2)
-script = ExtResource("3_k5t4t")
+[node name="DealDamage" type="Area2D" parent="little_knight"]
 
-[node name="Health, Stamina, Magic" type="RichTextLabel" parent="Camera2D"]
-offset_left = -287.0
-offset_top = -142.0
-offset_right = -131.0
-offset_bottom = -86.0
-fit_content = true
+[node name="AttackHitbox" type="CollisionShape2D" parent="little_knight/DealDamage"]
+shape = SubResource("CircleShape2D_k5t4t")
+disabled = true
+
+[node name="TakeDamage" type="Area2D" parent="little_knight"]
+
+[node name="Hurtbox" type="CollisionShape2D" parent="little_knight/TakeDamage"]
+shape = SubResource("CapsuleShape2D_k5t4t")
+
+[node name="Camera2D" type="Camera2D" parent="little_knight"]
+zoom = Vector2(1.1, 1.1)
+limit_bottom = 96
+
+[node name="ResetPowerMode" type="Timer" parent="little_knight"]
+wait_time = 0.4
+one_shot = true
+autostart = true
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="little_knight"]
+amount = 20
+direction = Vector2(1, -10)
+gravity = Vector2(0, 200)
+orbit_velocity_min = 2.0
+orbit_velocity_max = 20.0
+angle_curve = SubResource("Curve_dy5uf")
+scale_amount_min = 3.0
+scale_amount_max = 5.0
+color_ramp = SubResource("Gradient_dy5uf")
+
+[connection signal="area_entered" from="little_knight/TakeDamage" to="little_knight" method="_on_take_damage_area_entered"]

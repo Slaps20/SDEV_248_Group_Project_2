@@ -1,0 +1,89 @@
+[gd_scene load_steps=12 format=3 uid="uid://cjrwbel8yqlp4"]
+
+[ext_resource type="Script" uid="uid://b3ex42t5ck7pc" path="res://Characters/zombie.gd" id="1_3w5nb"]
+[ext_resource type="Texture2D" uid="uid://b55tbfvp51ucr" path="res://Assets/zombie.png" id="2_wbk6q"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b2p8e"]
+atlas = ExtResource("2_wbk6q")
+region = Rect2(0, 1, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x3dli"]
+atlas = ExtResource("2_wbk6q")
+region = Rect2(1, 33, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sdlgx"]
+atlas = ExtResource("2_wbk6q")
+region = Rect2(33, 33, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dxulg"]
+atlas = ExtResource("2_wbk6q")
+region = Rect2(66, 33, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ltif"]
+atlas = ExtResource("2_wbk6q")
+region = Rect2(98, 33, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5ivgc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b2p8e")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x3dli")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sdlgx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dxulg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ltif")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6tlm8"]
+size = Vector2(16, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h6jj7"]
+size = Vector2(27, 32)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k14c6"]
+radius = 17.0
+
+[node name="Zombie" type="CharacterBody2D"]
+script = ExtResource("1_3w5nb")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_5ivgc")
+animation = &"walk"
+autoplay = "walk"
+frame_progress = 0.578721
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_6tlm8")
+
+[node name="DealDamage" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DealDamage"]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_h6jj7")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_k14c6")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
