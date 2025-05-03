@@ -3,6 +3,7 @@ extends Area2D # allows all collectibles to hover
 class_name Collectibles
 
 var score = 100
+var recover = 5
 
 func _ready():
 	hover()

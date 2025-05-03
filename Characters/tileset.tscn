@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=4 uid="uid://b51sor208gitu"]
+[gd_scene load_steps=15 format=4 uid="uid://b51sor208gitu"]
 
 [ext_resource type="Texture2D" uid="uid://crka6e8ji703p" path="res://Assets/terrain_tilemap.png" id="1_2ap32"]
 [ext_resource type="PackedScene" uid="uid://ijd6ukrh48kr" path="res://Characters/coin.tscn" id="2_6ql6v"]
 [ext_resource type="PackedScene" uid="uid://cmvujjwc2jhhs" path="res://Characters/goblin.tscn" id="3_6ql6v"]
 [ext_resource type="PackedScene" uid="uid://cjrwbel8yqlp4" path="res://Characters/zombie.tscn" id="3_7elss"]
 [ext_resource type="PackedScene" uid="uid://clrld3v6b8poq" path="res://Characters/potion.tscn" id="3_ryrsk"]
+[ext_resource type="PackedScene" uid="uid://bp70plradqh5u" path="res://Characters/armor.tscn" id="4_rfkrg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ybxfq"]
 resource_name = "Structure"
@@ -40,6 +41,7 @@ sources/0 = SubResource("TileSetAtlasSource_ybxfq")
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_ryrsk"]
 scenes/1/scene = ExtResource("2_6ql6v")
 scenes/2/scene = ExtResource("3_ryrsk")
+scenes/3/scene = ExtResource("4_rfkrg")
 
 [sub_resource type="TileSet" id="TileSet_awjr1"]
 sources/1 = SubResource("TileSetScenesCollectionSource_ryrsk")

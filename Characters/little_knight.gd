@@ -22,6 +22,8 @@ signal stamina_changed
 func _ready() -> void:
 	Global.playerDamageZone = $DealDamage
 	Global.playerCollision = $TakeDamage
+	Global.get_potion.connect(consume_potion)
+	Global.get_armor.connect(consume_armor)
 	stamina = max_stamina
 	hp = max_hp
 	$CPUParticles2D.emitting = false
@@ -101,7 +103,7 @@ func _on_take_damage_area_entered(area: Area2D) -> void:
 
 func take_damage():
 	if hp > 0:
-		hp -= 1
+		hp -= 3
 		hp_changed.emit(hp, max_hp)
 		if hp <= 0: # comically falls off map like goblin death
 			hp = 0
@@ -116,3 +118,22 @@ func take_damage():
 		await get_tree().create_timer(3.0).timeout
 		can_take_damage = true
 		$".".modulate.a = 1
+
+func consume_potion(score, recover):
+	if hp >= max_hp:
+		Global.score += score
+	else:
+		hp += recover
+		if hp > max_hp:
+			hp = max_hp
+
+func consume_armor(score, recover):
+	if max_hp < 20:
+		max_hp += recover
+		Global.score += score / 5
+	else:
+		max_hp = 20
+		Global.score += score
+	hp += recover
+	if hp > max_hp:
+		hp = max_hp
