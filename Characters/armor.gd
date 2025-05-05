@@ -2,11 +2,9 @@ extends Collectibles
 
 func _ready() -> void:
 	hover()
-	score = 500
+	score = 1000
 
 func _on_area_entered(area: Area2D) -> void:
 	if area == Global.playerCollision:
-		Global.score += score
+		Global.get_armor.emit(score, recover) # see little_knight's _ready
 		queue_free()
-
-# tryna give hp? too bad, i can't figure it out, certainly not with global var

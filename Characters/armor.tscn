@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://bp70plradqh5u"]
+
+[ext_resource type="Script" uid="uid://bophmbjaplvpx" path="res://Characters/armor.gd" id="1_mjspl"]
+[ext_resource type="Texture2D" uid="uid://crka6e8ji703p" path="res://Assets/terrain_tilemap.png" id="2_1omhp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4pv1h"]
+radius = 19.6469
+
+[node name="armor" type="Area2D"]
+script = ExtResource("1_mjspl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_1omhp")
+hframes = 5
+vframes = 4
+frame = 19
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_4pv1h")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

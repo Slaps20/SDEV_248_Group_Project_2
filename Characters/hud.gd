@@ -1,7 +1,10 @@
 extends CanvasLayer
 
 func update_hp(hp, max_hp):
-	$Health.text = "HP: " + str(hp) + "/" + str(max_hp) + "\n"
+	if hp < 0:
+		$Health.text = "HP: 0" + "/" + str(max_hp) + "\n"
+	else:
+		$Health.text = "HP: " + str(hp) + "/" + str(max_hp) + "\n"
 
 func update_stamina(stamina, max_stamina):
 	if stamina < 0:
