@@ -1,0 +1,81 @@
+[gd_scene load_steps=12 format=3 uid="uid://cfylthcgb3nr2"]
+
+[ext_resource type="Script" uid="uid://br5pc8absayy" path="res://Characters/knight_(free).gd" id="1_s74dj"]
+[ext_resource type="Texture2D" uid="uid://c3nw3oucql2aa" path="res://Assets/simple_knight_v2.svg" id="2_n4ug6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dy5uf"]
+atlas = ExtResource("2_n4ug6")
+region = Rect2(24, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k5t4t"]
+atlas = ExtResource("2_n4ug6")
+region = Rect2(59, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tx634"]
+atlas = ExtResource("2_n4ug6")
+region = Rect2(94, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6v1c2"]
+atlas = ExtResource("2_n4ug6")
+region = Rect2(24, 67, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_isoon"]
+atlas = ExtResource("2_n4ug6")
+region = Rect2(59, 67, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ipvt"]
+atlas = ExtResource("2_n4ug6")
+region = Rect2(94, 67, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xxicu"]
+atlas = ExtResource("2_n4ug6")
+region = Rect2(129, 67, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oqspd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dy5uf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k5t4t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tx634")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6v1c2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_isoon")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ipvt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xxicu")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_37j3k"]
+size = Vector2(22, 32)
+
+[node name="Knight (Free)" type="CharacterBody2D"]
+script = ExtResource("1_s74dj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_oqspd")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.864586
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_37j3k")
