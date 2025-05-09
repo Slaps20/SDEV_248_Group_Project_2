@@ -56,7 +56,7 @@ func _physics_process(delta: float) -> void:
 		$CPUParticles2D.emitting = false
 		$CPUParticles2D.restart()
 		$CPUParticles2D.hide()
-
+		
 func movement():
 	if Input.is_action_pressed("Right"):
 		is_moving = true

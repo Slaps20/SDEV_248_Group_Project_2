@@ -1,0 +1,212 @@
+[gd_scene load_steps=20 format=3 uid="uid://c2ka5yqgddk8a"]
+
+[ext_resource type="Texture2D" uid="uid://c3nw3oucql2aa" path="res://Assets/simple_knight_v2.svg" id="1_kgpbf"]
+
+[sub_resource type="GDScript" id="GDScript_kgpbf"]
+script/source = "class_name cut_scene
+extends CharacterBody2D
+@onready var anim: AnimatedSprite2D = $AnimatedSprite2D
+@onready var label_1: Label = $Label_1
+@onready var label_2: Label = $Label_2
+
+
+const SPEED = 300.0
+const JUMP_VELOCITY = -400.0
+var is_moving = true
+
+func _physics_process(delta: float) -> void:
+	# Add the gravity.
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+
+	move_and_slide()
+
+func can_move():
+	is_moving = true
+
+func cant_move():
+	is_moving = false
+	
+func play_walk(roll):
+	anim.play(\"roll\")
+
+func stop_walk(roll):
+	anim.stop()
+	anim.play(\"idle\")
+	
+func isvis():
+	label_1.set(\"visible\", true)
+	
+func is_not_vis():
+	label_1.set(\"visible\", false)
+	
+func isvis_2():
+	label_2.set(\"visible\", true)
+	
+func is_not_vis_2():
+	label_2.set(\"visible\", false)
+	
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b62wp"]
+atlas = ExtResource("1_kgpbf")
+region = Rect2(24, 30, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ypbhk"]
+atlas = ExtResource("1_kgpbf")
+region = Rect2(59, 30, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7rpas"]
+atlas = ExtResource("1_kgpbf")
+region = Rect2(94, 30, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kgpbf"]
+atlas = ExtResource("1_kgpbf")
+region = Rect2(194, 100, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pb8xb"]
+atlas = ExtResource("1_kgpbf")
+region = Rect2(228, 100, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u2wse"]
+atlas = ExtResource("1_kgpbf")
+region = Rect2(262, 100, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_liv4l"]
+atlas = ExtResource("1_kgpbf")
+region = Rect2(296, 100, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gp0ah"]
+atlas = ExtResource("1_kgpbf")
+region = Rect2(330, 100, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2hnds"]
+atlas = ExtResource("1_kgpbf")
+region = Rect2(364, 100, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y2mkv"]
+atlas = ExtResource("1_kgpbf")
+region = Rect2(398, 100, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_37b1o"]
+atlas = ExtResource("1_kgpbf")
+region = Rect2(432, 100, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fm326"]
+atlas = ExtResource("1_kgpbf")
+region = Rect2(24, 100, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ou5u"]
+atlas = ExtResource("1_kgpbf")
+region = Rect2(59, 100, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_srv34"]
+atlas = ExtResource("1_kgpbf")
+region = Rect2(94, 100, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t6ifo"]
+atlas = ExtResource("1_kgpbf")
+region = Rect2(129, 100, 34, 34)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pb8xb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b62wp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ypbhk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7rpas")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kgpbf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pb8xb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u2wse")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_liv4l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gp0ah")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2hnds")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y2mkv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_37b1o")
+}],
+"loop": true,
+"name": &"roll",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fm326")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ou5u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_srv34")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t6ifo")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kgpbf"]
+size = Vector2(20, 27)
+
+[node name="scene_character" type="CharacterBody2D"]
+script = SubResource("GDScript_kgpbf")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_pb8xb")
+animation = &"roll"
+autoplay = "idle"
+frame_progress = 0.221319
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3.5)
+shape = SubResource("RectangleShape2D_kgpbf")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+
+[node name="Label_1" type="Label" parent="."]
+visible = false
+offset_left = 7.0
+offset_top = -98.0
+offset_right = 309.0
+offset_bottom = -23.0
+text = "To bad all the gold Ive hoard broke my 
+ankels. I should really thank the wizard
+for magic powers."
+
+[node name="Label_2" type="Label" parent="."]
+visible = false
+offset_left = 7.0
+offset_top = -119.0
+offset_right = 316.0
+offset_bottom = -18.0
+text = "Well time to get more gold. Maybe one
+day I will have enought gold.... what am 
+ saying. It is just too pretty. I can never 
+have enough"
