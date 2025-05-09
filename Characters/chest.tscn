@@ -1,0 +1,67 @@
+[gd_scene load_steps=10 format=3 uid="uid://cdsg4jujduevn"]
+
+[ext_resource type="Texture2D" uid="uid://bo557ema2r1r2" path="res://Assets/WoodenChest.png" id="1_jjuat"]
+[ext_resource type="Script" uid="uid://qa2d6mfq54iy" path="res://Characters/chest.gd" id="1_n04n8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n04n8"]
+atlas = ExtResource("1_jjuat")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x5qas"]
+atlas = ExtResource("1_jjuat")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1qmyh"]
+atlas = ExtResource("1_jjuat")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6gg4a"]
+atlas = ExtResource("1_jjuat")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ibotj"]
+atlas = ExtResource("1_jjuat")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jtfnw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n04n8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x5qas")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1qmyh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6gg4a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ibotj")
+}],
+"loop": false,
+"name": &"chest",
+"speed": 7.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fhkwp"]
+size = Vector2(17.1318, 14.2222)
+
+[node name="Chest" type="Area2D"]
+scale = Vector2(3.26877, 2.25)
+script = ExtResource("1_n04n8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_jtfnw")
+animation = &"chest"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1.09407e-07, -3.17891e-07)
+shape = SubResource("RectangleShape2D_fhkwp")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.4, 1.4)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

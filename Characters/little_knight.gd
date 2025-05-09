@@ -46,6 +46,7 @@ func _physics_process(delta: float) -> void:
 		animate_stamina(delta)
 		movement()
 	
+	
 	if linear_velocity.x > 420.0 or linear_velocity.x < -420.0: # dash threshold
 		$DealDamage/AttackHitbox.disabled = false
 		$ResetPowerMode.start()
@@ -56,7 +57,15 @@ func _physics_process(delta: float) -> void:
 		$CPUParticles2D.emitting = false
 		$CPUParticles2D.restart()
 		$CPUParticles2D.hide()
-		
+			
+	if $".".position.y > 1000:
+		hp = 1
+		take_damage()
+	
+	if hp <= 0 and dead:
+		await get_tree().create_timer(2).timeout
+		get_tree().change_scene_to_file.bind("res://Characters/dead.tscn").call_deferred()
+
 func movement():
 	if Input.is_action_pressed("Right"):
 		is_moving = true
@@ -84,7 +93,7 @@ func animate_stamina(delta): # gradually recover stamina
 	if stamina >= max_stamina:
 		stamina = max_stamina
 	else:
-		stamina += 2 * delta
+		stamina += 2.4 * delta
 	stamina_changed.emit(stamina, max_stamina)
 
 #func inventory():
@@ -115,7 +124,7 @@ func take_damage():
 			set_collision_mask_value(1, false)
 		can_take_damage = false # invulnerability state
 		$".".modulate.a = 0.5
-		await get_tree().create_timer(3.0).timeout
+		await get_tree().create_timer(2).timeout
 		can_take_damage = true
 		$".".modulate.a = 1
 
@@ -137,3 +146,6 @@ func consume_armor(score, recover):
 	hp += recover
 	if hp > max_hp:
 		hp = max_hp
+
+func _on_area_2d_disable_camera() -> void: # connected from chest's disable_camera signal
+	$Camera2D.enabled = false
